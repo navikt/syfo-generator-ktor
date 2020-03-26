@@ -1,6 +1,5 @@
 var Generator = require('yeoman-generator')
 var mkdirp = require("mkdirp")
-var mergeYaml = require('merge-yaml');
 
 
 module.exports = class extends Generator {

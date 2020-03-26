@@ -9,7 +9,6 @@
     "yeoman-generator"
   ],
   "dependencies": {
-    "merge-yaml": "^1.1.0",
     "mkdirp": "^1.0.3",
     "yeoman-generator": "^1.1.1"
   },

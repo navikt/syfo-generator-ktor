@@ -39,6 +39,12 @@ vault integrations is disabled, to enable vault there has to be created a pull r
 https://github.com/navikt/vault-iac/
 ```
 
+To add azuread client create pull request here 
+
+```
+https://github.com/navikt/aad-iac/
+```
+
 ## Contact us
 ### Code/project related questions can be sent to
 * Joakim Kartveit, `joakim.kartveit@nav.no`

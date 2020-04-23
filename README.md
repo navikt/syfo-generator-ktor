@@ -34,10 +34,20 @@ git push
 ```
 
 This will setup a new application and deploy it to NAIS
-vault integrations is disabled, to enable vault there has to be created a pull request here
+
+### Add servicebruker
+
+```
+https://github.com/navikt/gruppetilgang-servicebruker
+```
+
+### vault 
+by defualt vault integrations is disabled, to enable vault there has to be created a pull request here
 ```
 https://github.com/navikt/vault-iac/
 ```
+
+### Azuread 
 
 To add azuread client create pull request here 
 

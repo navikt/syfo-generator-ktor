@@ -12,7 +12,7 @@ This project contains a yeoman generator for new syfo ktor apps
 
 1. create new github-repository for the new app
 
-2. add NAIS_DEPLOY_APIKEY to github secrets, you can find the secret in [vault/apikey/nais-deploy/teamsykfravr](https://vault.adeo.no/ui/vault/secrets/apikey/show/nais-deploy/teamsykefravr)
+2. add NAIS_DEPLOY_APIKEY to github secrets, you can find the secret in [Vault](https://vault.adeo.no/ui/vault/secrets/apikey/show/nais-deploy/teamsykefravr)
 
 3. install yeoman 
 ```

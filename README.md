@@ -55,6 +55,13 @@ To add azuread client create pull request here
 https://github.com/navikt/aad-iac/
 ```
 
+### Postgresql
+
+Add your application in a config file representing whatever database size you want, and send a PR to the master branch.
+```
+https://github.com/navikt/database-iac
+```
+
 ## Contact us
 ### Code/project related questions can be sent to
 * Joakim Kartveit, `joakim.kartveit@nav.no`

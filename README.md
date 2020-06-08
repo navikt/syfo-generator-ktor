@@ -12,7 +12,7 @@ This project contains a yeoman generator for new syfo ktor apps
 
 1. create new github-repository for the new app
 
-2. add NAIS_DEPLOY_APIKEY to github secrets, you can find the secret in vault/apikeys/teamsykefravr
+2. add NAIS_DEPLOY_APIKEY to github secrets, you can find the secret in [Vault](https://vault.adeo.no/ui/vault/secrets/apikey/show/nais-deploy/teamsykefravr)
 
 3. install yeoman 
 ```
@@ -53,6 +53,13 @@ To add azuread client create pull request here
 
 ```
 https://github.com/navikt/aad-iac/
+```
+
+### Postgresql
+
+Add your application in a config file representing whatever database size you want, and send a PR to the master branch.
+```
+https://github.com/navikt/database-iac
 ```
 
 ## Contact us

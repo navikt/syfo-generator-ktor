@@ -5,37 +5,33 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 group = "<%= appPackage %>"
 version = "1.0.0"
 
-val coroutinesVersion = "1.3.3"
-val javaxActivationVersion = "1.1.1"
-val jacksonVersion = "2.9.7"
-val kluentVersion = "1.49"
-val ktorVersion = "1.3.0"
+val coroutinesVersion = "1.4.2"
+val jacksonVersion = "2.12.0"
+val kluentVersion = "1.61"
+val ktorVersion = "1.4.3"
 val logbackVersion = "1.2.3"
-val logstashEncoderVersion = "5.1"
-val prometheusVersion = "0.6.0"
+val logstashEncoderVersion = "6.5"
+val prometheusVersion = "0.9.0"
 val spekVersion = "2.0.9"
-val smCommonVersion = "1.7cb158e"
-val mockkVersion = "1.9.3"
-val nimbusdsVersion = "7.5.1"
-val testContainerKafkaVersion = "1.12.5"
+val smCommonVersion = "1.836b169"
+val mockkVersion = "1.10.3"
+val nimbusdsVersion = "9.2"
+val testContainerKafkaVersion = "1.15.1"
 
 tasks.withType<Jar> {
     manifest.attributes["Main-Class"] = "<%= appPackage %>.BootstrapKt"
 }
 
 plugins {
-    id("org.jmailen.kotlinter") version "2.1.1"
-    kotlin("jvm") version "1.3.70"
-    id("com.diffplug.gradle.spotless") version "3.23.1"
-    id("com.github.johnrengelman.shadow") version "4.0.4"
+    id("org.jmailen.kotlinter") version "3.3.0"
+    kotlin("jvm") version "1.4.21"
+    id("com.diffplug.spotless") version "5.8.2"
+    id("com.github.johnrengelman.shadow") version "6.1.0"
     jacoco
 }
 
 buildscript {
     dependencies {
-        classpath("javax.xml.bind:jaxb-api:2.4.0-b180830.0359")
-        classpath("org.glassfish.jaxb:jaxb-runtime:2.4.0-b180830.0438")
-        classpath("com.sun.activation:javax.activation:1.2.0")
     }
 }
 

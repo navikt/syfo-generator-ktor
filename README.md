@@ -64,7 +64,6 @@ https://github.com/navikt/database-iac
 
 ## Contact us
 ### Code/project related questions can be sent to
-* Joakim Kartveit, `joakim.kartveit@nav.no`
 * Andreas Nilsen, `andreas.nilsen@nav.no`
 * Sebastian Knudsen, `sebastian.knudsen@nav.no`
 * Tia Firing, `tia.firing@nav.no`

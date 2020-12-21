@@ -10,7 +10,7 @@ module.exports = class extends Generator {
                 type: "input",
                 name: "team",
                 message: "your team",
-                default: "teamsykefravr",
+                default: "teamsykmelding",
             },
             {
                 type: "input",
@@ -28,10 +28,23 @@ module.exports = class extends Generator {
                     if(!startsWithSrv) {
                         return "srvname needs to start with srv"
                     }
-                    if(input.length > 18) {
+                    if(input.length > 20) {
                         return "srvname should be 18 or less characters"
                     }
                     return startsWithSrv
+                }
+            },
+            {
+                type: "list",
+                name: "cluster",
+                message: "nais-cluster",
+                choices: ["gcp", "fss"],
+                validate: function(input) {
+                    var isGCPorFSS = input === "gcp" || input === "fss"
+                    if(!isGCPorFSS) {
+                        return "cluster must be gcp or fss"
+                    }
+                    return isGCPorFSS
                 }
             },
             {
@@ -41,6 +54,33 @@ module.exports = class extends Generator {
             }
         ])
 
+        if(this.answers.cluster === "gcp") {
+            const answers2 = await this.prompt([
+                {
+                    type: "list",
+                    name: "ingressDev",
+                    message: "ingress for dev-gcp",
+                    choices: [ 
+                        "https://" + this.answers.name + ".dev.nav.no", 
+                        "https://" + this.answers.name + ".dev.intern.nav.no" ]
+                },
+                {
+                    type: "list",
+                    name: "ingressProd",
+                    message: "ingress for dev-gcp",
+                    choices: [ 
+                        "https://" + this.answers.name + ".intern.nav.no", 
+                        "https://" + this.answers.name + ".nav.no" ]
+                }
+            ])
+            
+            this.answers.ingressDev = answers2.ingressDev
+            this.answers.ingressProd = answers2.ingressProd
+        } else {
+            this.answers.ingressDev = "https://" + this.answers.name + ".nais.preprod.local"
+            this.answers.ingressDev = "https://" + this.answers.name + ".nais.adeo.no"
+        }
+ 
     }
 
     writing() {
@@ -51,6 +91,9 @@ module.exports = class extends Generator {
             appName: this.answers.name,
             team: this.answers.team,
             serverName: this.answers.serverName,
+            ingressDev: this.answers.ingressDev,
+            ingressProd: this.answers.ingressProd,
+            cluster: this.answers.cluster,
             kafka: ""
         }
         mkdirp("src/main/kotlin/" + packageDir)

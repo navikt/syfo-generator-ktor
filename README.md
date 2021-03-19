@@ -61,14 +61,3 @@ Add your application in a config file representing whatever database size you wa
 ```
 https://github.com/navikt/database-iac
 ```
-
-## Contact us
-### Code/project related questions can be sent to
-* Andreas Nilsen, `andreas.nilsen@nav.no`
-* Sebastian Knudsen, `sebastian.knudsen@nav.no`
-* Tia Firing, `tia.firing@nav.no`
-* Jonas Henie, `jonas.henie@nav.no`
-* Mathias Hellevang, `mathias.hellevang@nav.no`
-
-### For NAV employees
-We are available at the Slack channel #team-sykmelding

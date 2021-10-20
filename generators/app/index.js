@@ -78,7 +78,7 @@ module.exports = class extends Generator {
             this.answers.ingressProd = answers2.ingressProd
         } else {
             this.answers.ingressDev = "https://" + this.answers.name + ".nais.preprod.local"
-            this.answers.ingressDev = "https://" + this.answers.name + ".nais.adeo.no"
+            this.answers.ingressProd = "https://" + this.answers.name + ".nais.adeo.no"
         }
  
     }

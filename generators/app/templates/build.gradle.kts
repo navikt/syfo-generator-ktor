@@ -5,27 +5,27 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 group = "<%= appPackage %>"
 version = "1.0.0"
 
-val coroutinesVersion = "1.4.2"
+val coroutinesVersion = "1.5.1"
 val jacksonVersion = "2.12.0"
-val kluentVersion = "1.61"
-val ktorVersion = "1.5.1"
-val logbackVersion = "1.2.3"
-val logstashEncoderVersion = "6.5"
-val prometheusVersion = "0.9.0"
-val spekVersion = "2.0.14"
-val smCommonVersion = "1.1014a98"
-val mockkVersion = "1.10.3"
+val kluentVersion = "1.68"
+val ktorVersion = "1.6.4"
+val logbackVersion = "1.2.6"
+val logstashEncoderVersion = "6.6"
+val prometheusVersion = "0.12.0"
+val spekVersion = "2.0.17"
+val smCommonVersion = "1.88ca328"
+val mockkVersion = "1.12.0"
 val nimbusdsVersion = "9.2"
-val testContainerKafkaVersion = "1.15.1"
+val testContainerKafkaVersion = "1.16.0"
 
 tasks.withType<Jar> {
     manifest.attributes["Main-Class"] = "<%= appPackage %>.BootstrapKt"
 }
 
 plugins {
-    id("org.jmailen.kotlinter") version "3.3.0"
-    kotlin("jvm") version "1.4.21"
-    id("com.diffplug.spotless") version "5.8.2"
+    id("org.jmailen.kotlinter") version "3.6.0"
+    kotlin("jvm") version "1.5.30"
+    id("com.diffplug.spotless") version "5.16.0"
     id("com.github.johnrengelman.shadow") version "6.1.0"
     jacoco
 }
@@ -40,11 +40,6 @@ val githubPassword: String by project
 
 repositories {
     mavenCentral()
-    jcenter()
-    maven(url = "https://dl.bintray.com/kotlin/ktor")
-    maven(url = "https://dl.bintray.com/spekframework/spek-dev")
-    maven(url = "https://packages.confluent.io/maven/")
-    maven(url = "https://kotlin.bintray.com/kotlinx")
     maven {
         url = uri("https://maven.pkg.github.com/navikt/syfosm-common")
         credentials {
@@ -109,7 +104,7 @@ tasks {
     }
 
     withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = "12"
+        kotlinOptions.jvmTarget = "14"
     }
 
     withType<JacocoReport> {

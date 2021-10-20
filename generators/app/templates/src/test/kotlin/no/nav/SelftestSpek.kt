@@ -8,7 +8,7 @@ import io.ktor.server.testing.handleRequest
 import io.ktor.util.KtorExperimentalAPI
 import <%= appPackage %>.application.ApplicationState
 import <%= appPackage %>.application.api.registerNaisApi
-import org.amshove.kluent.shouldEqual
+import org.amshove.kluent.shouldBeEqualTo
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
@@ -24,14 +24,14 @@ object SelftestSpek : Spek({
 
             it("Returns ok on is_alive") {
                 with(handleRequest(HttpMethod.Get, "/is_alive")) {
-                    response.status() shouldEqual HttpStatusCode.OK
-                    response.content shouldEqual "I'm alive! :)"
+                    response.status() shouldBeEqualTo HttpStatusCode.OK
+                    response.content shouldBeEqualTo "I'm alive! :)"
                 }
             }
             it("Returns ok in is_ready") {
                 with(handleRequest(HttpMethod.Get, "/is_ready")) {
-                    response.status() shouldEqual HttpStatusCode.OK
-                    response.content shouldEqual "I'm ready! :)"
+                    response.status() shouldBeEqualTo HttpStatusCode.OK
+                    response.content shouldBeEqualTo "I'm ready! :)"
                 }
             }
         }
@@ -46,15 +46,15 @@ object SelftestSpek : Spek({
 
             it("Returns internal server error when liveness check fails") {
                 with(handleRequest(HttpMethod.Get, "/is_alive")) {
-                    response.status() shouldEqual HttpStatusCode.InternalServerError
-                    response.content shouldEqual "I'm dead x_x"
+                    response.status() shouldBeEqualTo HttpStatusCode.InternalServerError
+                    response.content shouldBeEqualTo "I'm dead x_x"
                 }
             }
 
             it("Returns internal server error when readyness check fails") {
                 with(handleRequest(HttpMethod.Get, "/is_ready")) {
-                    response.status() shouldEqual HttpStatusCode.InternalServerError
-                    response.content shouldEqual "Please wait! I'm not ready :("
+                    response.status() shouldBeEqualTo HttpStatusCode.InternalServerError
+                    response.content shouldBeEqualTo "Please wait! I'm not ready :("
                 }
             }
         }

@@ -5,18 +5,17 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 group = "<%= appPackage %>"
 version = "1.0.0"
 
-val coroutinesVersion = "1.5.1"
-val jacksonVersion = "2.12.0"
+val coroutinesVersion = "1.6.0"
+val jacksonVersion = "2.13.1"
 val kluentVersion = "1.68"
-val ktorVersion = "1.6.4"
-val logbackVersion = "1.2.6"
-val logstashEncoderVersion = "6.6"
-val prometheusVersion = "0.12.0"
+val ktorVersion = "1.6.7"
+val logbackVersion = "1.2.9"
+val logstashEncoderVersion = "7.0.1"
+val prometheusVersion = "0.14.1"
 val spekVersion = "2.0.17"
-val smCommonVersion = "1.88ca328"
-val mockkVersion = "1.12.0"
-val nimbusdsVersion = "9.2"
-val testContainerKafkaVersion = "1.16.0"
+val smCommonVersion = "1.a92720c"
+val mockkVersion = "1.12.1"
+val testContainerKafkaVersion = "1.16.2"
 
 tasks.withType<Jar> {
     manifest.attributes["Main-Class"] = "<%= appPackage %>.BootstrapKt"
@@ -24,9 +23,9 @@ tasks.withType<Jar> {
 
 plugins {
     id("org.jmailen.kotlinter") version "3.6.0"
-    kotlin("jvm") version "1.5.30"
+    kotlin("jvm") version "1.6.0"
     id("com.diffplug.spotless") version "5.16.0"
-    id("com.github.johnrengelman.shadow") version "6.1.0"
+    id("com.github.johnrengelman.shadow") version "7.0.0"
     jacoco
 }
 
@@ -76,7 +75,6 @@ dependencies {
     testImplementation("org.amshove.kluent:kluent:$kluentVersion") 
     testImplementation("io.mockk:mockk:$mockkVersion")
     testImplementation("org.spekframework.spek2:spek-dsl-jvm:$spekVersion")
-    testImplementation("com.nimbusds:nimbus-jose-jwt:$nimbusdsVersion")
     testImplementation("org.testcontainers:kafka:$testContainerKafkaVersion")
     testImplementation("io.ktor:ktor-server-test-host:$ktorVersion") {
         exclude(group = "org.eclipse.jetty") 
@@ -104,7 +102,7 @@ tasks {
     }
 
     withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = "14"
+        kotlinOptions.jvmTarget = "17"
     }
 
     withType<JacocoReport> {

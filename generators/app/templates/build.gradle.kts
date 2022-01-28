@@ -9,13 +9,14 @@ val coroutinesVersion = "1.6.0"
 val jacksonVersion = "2.13.1"
 val kluentVersion = "1.68"
 val ktorVersion = "1.6.7"
-val logbackVersion = "1.2.9"
+val logbackVersion = "1.2.10"
 val logstashEncoderVersion = "7.0.1"
 val prometheusVersion = "0.14.1"
-val spekVersion = "2.0.17"
 val smCommonVersion = "1.a92720c"
-val mockkVersion = "1.12.1"
+val mockkVersion = "1.12.2"
 val testContainerKafkaVersion = "1.16.2"
+val kotlinVersion = "1.6.0"
+val kotestVersion = "5.1.0"
 
 tasks.withType<Jar> {
     manifest.attributes["Main-Class"] = "<%= appPackage %>.BootstrapKt"
@@ -50,7 +51,7 @@ repositories {
 
 
 dependencies {
-    implementation(kotlin("stdlib"))
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-slf4j:$coroutinesVersion")
     implementation("io.prometheus:simpleclient_hotspot:$prometheusVersion")
@@ -79,12 +80,9 @@ dependencies {
     testImplementation("io.ktor:ktor-server-test-host:$ktorVersion") {
         exclude(group = "org.eclipse.jetty") 
     }
-    testImplementation("org.spekframework.spek2:spek-dsl-jvm:$spekVersion") {
-        exclude(group = "org.jetbrains.kotlin")
-    }
-    testRuntimeOnly("org.spekframework.spek2:spek-runner-junit5:$spekVersion") {
-        exclude(group = "org.jetbrains.kotlin")
-    }
+    testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
+    testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
+    testImplementation("io.kotest:kotest-property:$kotestVersion")
 }
 
 tasks.jacocoTestReport {
@@ -122,7 +120,6 @@ tasks {
 
     withType<Test> {
         useJUnitPlatform {
-            includeEngines("spek2")
         }
         testLogging.showStandardStreams = true
     }

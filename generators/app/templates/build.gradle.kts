@@ -75,7 +75,6 @@ dependencies {
 
     testImplementation("org.amshove.kluent:kluent:$kluentVersion") 
     testImplementation("io.mockk:mockk:$mockkVersion")
-    testImplementation("org.spekframework.spek2:spek-dsl-jvm:$spekVersion")
     testImplementation("org.testcontainers:kafka:$testContainerKafkaVersion")
     testImplementation("io.ktor:ktor-server-test-host:$ktorVersion") {
         exclude(group = "org.eclipse.jetty") 

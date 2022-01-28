@@ -10,7 +10,7 @@ import <%= appPackage %>.application.ApplicationState
 import <%= appPackage %>.application.api.registerNaisApi
 import org.amshove.kluent.shouldBeEqualTo
 
-object SelftestSpek : FunSpec({
+object SelftestSpec : FunSpec({
     context("Successfull liveness and readyness tests") {
         with(TestApplicationEngine()) {
             start()

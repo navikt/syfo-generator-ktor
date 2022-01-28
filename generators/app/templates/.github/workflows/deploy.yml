@@ -79,6 +79,7 @@ jobs:
     name: Deploy to dev
     runs-on: ubuntu-latest
     needs: [ snyk-test, build ]
+    steps:
       - name: Checkout code
         uses: actions/checkout@master
       - name: Deploy to dev

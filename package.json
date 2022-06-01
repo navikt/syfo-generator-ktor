@@ -10,7 +10,7 @@
   ],
   "dependencies": {
     "mkdirp": "^1.0.3",
-    "yeoman-generator": "^1.1.1"
+    "yeoman-generator": "^5.6.1"
   },
   "main": "index.js"
 }

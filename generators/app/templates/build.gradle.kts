@@ -5,28 +5,28 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 group = "<%= appPackage %>"
 version = "1.0.0"
 
-val coroutinesVersion = "1.6.0"
-val jacksonVersion = "2.13.1"
+val coroutinesVersion = "1.6.1"
+val jacksonVersion = "2.13.3"
 val kluentVersion = "1.68"
-val ktorVersion = "1.6.7"
-val logbackVersion = "1.2.10"
-val logstashEncoderVersion = "7.0.1"
-val prometheusVersion = "0.14.1"
-val smCommonVersion = "1.a92720c"
-val mockkVersion = "1.12.2"
-val testContainerKafkaVersion = "1.16.2"
-val kotlinVersion = "1.6.0"
-val kotestVersion = "5.1.0"
+val ktorVersion = "2.0.1"
+val logbackVersion = "1.2.11"
+val logstashEncoderVersion = "7.1.1"
+val prometheusVersion = "0.15.0"
+val smCommonVersion = "1.f132f2b"
+val mockkVersion = "1.12.3"
+val testContainerKafkaVersion = "1.17.1"
+val kotlinVersion = "1.6.21"
+val kotestVersion = "5.2.3"
 
 tasks.withType<Jar> {
     manifest.attributes["Main-Class"] = "<%= appPackage %>.BootstrapKt"
 }
 
 plugins {
-    id("org.jmailen.kotlinter") version "3.6.0"
-    kotlin("jvm") version "1.6.0"
-    id("com.diffplug.spotless") version "5.16.0"
-    id("com.github.johnrengelman.shadow") version "7.0.0"
+    id("org.jmailen.kotlinter") version "3.10.0"
+    kotlin("jvm") version "1.6.21"
+    id("com.diffplug.spotless") version "6.5.0"
+    id("com.github.johnrengelman.shadow") version "7.1.2"
     jacoco
 }
 
@@ -57,20 +57,23 @@ dependencies {
     implementation("io.prometheus:simpleclient_hotspot:$prometheusVersion")
     implementation("io.prometheus:simpleclient_common:$prometheusVersion")
 
+    implementation("io.ktor:ktor-server-core:$ktorVersion")
     implementation("io.ktor:ktor-server-netty:$ktorVersion")
+    implementation("io.ktor:ktor-server-auth:$ktorVersion")
+    implementation("io.ktor:ktor-server-auth-jwt:$ktorVersion")
+    implementation("io.ktor:ktor-server-content-negotiation:$ktorVersion")
+    implementation("io.ktor:ktor-server-cors:$ktorVersion")
+    implementation("io.ktor:ktor-server-call-id:$ktorVersion")
+    implementation("io.ktor:ktor-server-status-pages:$ktorVersion")
+    implementation("io.ktor:ktor-client-core:$ktorVersion")
     implementation("io.ktor:ktor-client-apache:$ktorVersion")
-    implementation("io.ktor:ktor-client-auth-basic:$ktorVersion")
-    implementation("io.ktor:ktor-client-jackson:$ktorVersion")
-    implementation("io.ktor:ktor-jackson:$ktorVersion")
-    implementation("io.ktor:ktor-auth:$ktorVersion")
-    implementation("io.ktor:ktor-auth-jwt:$ktorVersion")
+    implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+    implementation("io.ktor:ktor-serialization-jackson:$ktorVersion")
 
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
     implementation("net.logstash.logback:logstash-logback-encoder:$logstashEncoderVersion")
 
-    implementation("com.fasterxml.jackson.module:jackson-module-jaxb-annotations:$jacksonVersion")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVersion")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
 
     testImplementation("org.amshove.kluent:kluent:$kluentVersion") 

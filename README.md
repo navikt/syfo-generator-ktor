@@ -35,29 +35,10 @@ git push
 
 This will setup a new application and deploy it to NAIS
 
-### Add servicebruker
-
-```
-https://github.com/navikt/gruppetilgang-servicebruker
-```
-
-### vault 
-by defualt vault integrations is disabled, to enable vault there has to be created a pull request here
-```
-https://github.com/navikt/vault-iac/
-```
-
 ### Azuread 
 
 To add azuread client create pull request here 
 
 ```
 https://github.com/navikt/aad-iac/
-```
-
-### Postgresql
-
-Add your application in a config file representing whatever database size you want, and send a PR to the master branch.
-```
-https://github.com/navikt/database-iac
 ```

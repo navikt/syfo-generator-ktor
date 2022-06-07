@@ -19,68 +19,33 @@ module.exports = class extends Generator {
                 default: this.appname.replace(/\s+/g, '-')
             },
             {
-                type: "input",
-                name: "serverName",
-                message: "your app servername (srv..)",
-                default: "srv" + this.appname.replace(/\s+/g, '-'),
-                validate: function(input) {
-                    var startsWithSrv = input.startsWith("srv")
-                    if(!startsWithSrv) {
-                        return "srvname needs to start with srv"
-                    }
-                    if(input.length > 20) {
-                        return "srvname should be 18 or less characters"
-                    }
-                    return startsWithSrv
-                }
-            },
-            {
-                type: "list",
-                name: "cluster",
-                message: "nais-cluster",
-                choices: ["gcp", "fss"],
-                validate: function(input) {
-                    var isGCPorFSS = input === "gcp" || input === "fss"
-                    if(!isGCPorFSS) {
-                        return "cluster must be gcp or fss"
-                    }
-                    return isGCPorFSS
-                }
-            },
-            {
                 name: "package",
                 message: "name of the package",
                 default: "no.nav.syfo",
             }
         ])
 
-        if(this.answers.cluster === "gcp") {
-            const answers2 = await this.prompt([
-                {
-                    type: "list",
-                    name: "ingressDev",
-                    message: "ingress for dev-gcp",
-                    choices: [ 
-                        "https://" + this.answers.name + ".dev.nav.no", 
-                        "https://" + this.answers.name + ".dev.intern.nav.no" ]
-                },
-                {
-                    type: "list",
-                    name: "ingressProd",
-                    message: "ingress for dev-gcp",
-                    choices: [ 
-                        "https://" + this.answers.name + ".intern.nav.no", 
-                        "https://" + this.answers.name + ".nav.no" ]
-                }
-            ])
-            
-            this.answers.ingressDev = answers2.ingressDev
-            this.answers.ingressProd = answers2.ingressProd
-        } else {
-            this.answers.ingressDev = "https://" + this.answers.name + ".nais.preprod.local"
-            this.answers.ingressProd = "https://" + this.answers.name + ".nais.adeo.no"
-        }
- 
+        const answers2 = await this.prompt([
+            {
+                type: "list",
+                name: "ingressDev",
+                message: "ingress for dev-gcp",
+                choices: [ 
+                    "https://" + this.answers.name + ".dev.nav.no", 
+                    "https://" + this.answers.name + ".dev.intern.nav.no" ]
+            },
+            {
+                type: "list",
+                name: "ingressProd",
+                message: "ingress for dev-gcp",
+                choices: [ 
+                    "https://" + this.answers.name + ".intern.nav.no", 
+                    "https://" + this.answers.name + ".nav.no" ]
+            }
+        ])
+        
+        this.answers.ingressDev = answers2.ingressDev
+        this.answers.ingressProd = answers2.ingressProd 
     }
 
     writing() {
@@ -90,10 +55,9 @@ module.exports = class extends Generator {
             appPackage: this.answers.package,
             appName: this.answers.name,
             team: this.answers.team,
-            serverName: this.answers.serverName,
             ingressDev: this.answers.ingressDev,
             ingressProd: this.answers.ingressProd,
-            cluster: this.answers.cluster,
+            cluster: "gcp",
             kafka: ""
         }
         mkdirp("src/main/kotlin/" + packageDir)

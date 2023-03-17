@@ -32,7 +32,7 @@ module.exports = class extends Generator {
                 message: "ingress for dev-gcp",
                 choices: [ 
                     "https://" + this.answers.name + ".dev.nav.no", 
-                    "https://" + this.answers.name + ".dev.intern.nav.no" ]
+                    "https://" + this.answers.name + ".intern.dev.nav.no" ]
             },
             {
                 type: "list",

@@ -6,16 +6,16 @@ group = "<%= appPackage %>"
 version = "1.0.0"
 
 val coroutinesVersion = "1.6.4"
-val jacksonVersion = "2.14.2"
+val jacksonVersion = "2.15.0"
 val kluentVersion = "1.68"
 val ktorVersion = "2.2.4"
 val logbackVersion = "1.4.6"
 val logstashEncoderVersion = "7.3"
 val prometheusVersion = "0.15.0"
-val smCommonVersion = "1.9df1108"
+val smCommonVersion = "1.0.1"
 val mockkVersion = "1.13.4"
 val testContainerKafkaVersion = "1.17.6"
-val kotlinVersion = "1.8.10"
+val kotlinVersion = "1.8.21"
 val kotestVersion = "5.2.3"
 
 tasks.withType<Jar> {
@@ -24,8 +24,8 @@ tasks.withType<Jar> {
 
 plugins {
     id("org.jmailen.kotlinter") version "3.10.0"
-    kotlin("jvm") version "1.8.10"
-    id("com.github.johnrengelman.shadow") version "8.1.0"
+    kotlin("jvm") version "1.8.21"
+    id("com.github.johnrengelman.shadow") version "8.1.1"
     jacoco
 }
 

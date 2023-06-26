@@ -5,34 +5,42 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 group = "<%= appPackage %>"
 version = "1.0.0"
 
-val coroutinesVersion = "1.6.4"
-val jacksonVersion = "2.15.0"
-val kluentVersion = "1.68"
-val ktorVersion = "2.2.4"
-val logbackVersion = "1.4.6"
-val logstashEncoderVersion = "7.3"
-val prometheusVersion = "0.15.0"
-val smCommonVersion = "1.0.1"
-val mockkVersion = "1.13.4"
-val testContainerKafkaVersion = "1.17.6"
-val kotlinVersion = "1.8.21"
-val kotestVersion = "5.2.3"
+val coroutinesVersion: String by project
+val jacksonVersion: String by project
+val kluentVersion: String by project
+val ktorVersion: String by project
+val logbackVersion: String by project
+val logstashEncoderVersion: String by project
+val prometheusVersion: String by project
+val smCommonVersion: String by project
+val mockkVersion: String by project
+val testContainerKafkaVersion: String by project
+val kotlinVersion: String by project
+val junitVersion: String by project
+val jvmVersion: String by project
+val ktfmtVersion: String by project
+
+
+application {
+    mainClass.set("no.nav.syfo.ApplicationKt")
+
+    val isDevelopment: Boolean = project.ext.has("development")
+    applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
+}
 
 tasks.withType<Jar> {
     manifest.attributes["Main-Class"] = "<%= appPackage %>.BootstrapKt"
 }
 
 plugins {
-    id("org.jmailen.kotlinter") version "3.10.0"
-    kotlin("jvm") version "1.8.21"
+    kotlin("jvm") version "1.8.22"
+    id("io.ktor.plugin") version "2.3.1"
+    id("com.diffplug.spotless") version "6.19.0"
     id("com.github.johnrengelman.shadow") version "8.1.1"
-    jacoco
+    id("org.cyclonedx.bom") version "1.7.4"
 }
 
-buildscript {
-    dependencies {
-    }
-}
+
 
 val githubUser: String by project
 val githubPassword: String by project
@@ -58,12 +66,7 @@ dependencies {
 
     implementation("io.ktor:ktor-server-core:$ktorVersion")
     implementation("io.ktor:ktor-server-netty:$ktorVersion")
-    implementation("io.ktor:ktor-server-auth:$ktorVersion")
-    implementation("io.ktor:ktor-server-auth-jwt:$ktorVersion")
-    implementation("io.ktor:ktor-server-content-negotiation:$ktorVersion")
-    implementation("io.ktor:ktor-server-cors:$ktorVersion")
-    implementation("io.ktor:ktor-server-call-id:$ktorVersion")
-    implementation("io.ktor:ktor-server-status-pages:$ktorVersion")
+
     implementation("io.ktor:ktor-client-core:$ktorVersion")
     implementation("io.ktor:ktor-client-apache:$ktorVersion")
     implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
@@ -75,15 +78,12 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
 
-    testImplementation("org.amshove.kluent:kluent:$kluentVersion") 
-    testImplementation("io.mockk:mockk:$mockkVersion")
-    testImplementation("org.testcontainers:kafka:$testContainerKafkaVersion")
     testImplementation("io.ktor:ktor-server-test-host:$ktorVersion") {
         exclude(group = "org.eclipse.jetty") 
     }
-    testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
-    testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
-    testImplementation("io.kotest:kotest-property:$kotestVersion")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:$junitVersion")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
 }
 
 tasks {
@@ -92,8 +92,12 @@ tasks {
         println(project.version)
     }
 
+    withType<Jar> {
+        manifest.attributes["Main-Class"] = "<%= appPackage %>.ApplicationKt"
+    }
+
     withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = "17"
+        kotlinOptions.jvmTarget = jvmVersion
     }
 
     withType<ShadowJar> {
@@ -104,11 +108,18 @@ tasks {
     }
 
     withType<Test> {
-        useJUnitPlatform {}
-        testLogging.showStandardStreams = true
+        useJUnitPlatform()
+        testLogging {
+            events("skipped", "failed")
+            showStackTraces = true
+            exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+        }
     }
 
-    "check" {
-        dependsOn("formatKotlin")
+    spotless {
+        kotlin { ktfmt(ktfmtVersion).kotlinlangStyle() }
+        check {
+            dependsOn("spotlessApply")
+        }
     }
 }
